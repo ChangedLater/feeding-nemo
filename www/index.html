@@ -1,0 +1,57 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Feeding Nemo</title>
+    <style type="text/css" media="screen">
+    </style>
+  </head>
+  <body>
+<?php
+$filename = 'robots.txt';
+if( file_exists($filename) ){
+	$lastdate = new DateTime('@'.filectime($filename));
+	$curdate = new DateTime('now');
+	$diff = $curdate->diff($lastdate);
+	echo "<div>";
+	echo "Time since last feed: ".$diff->format("%d days %H:%I:%S");
+	echo "</div>";
+}
+?>
+	  <div>
+		  <img id="image" src="websnap.jpg" />
+	  </div>
+    <div>
+      <input type="password" name="submitted" id="field"/>
+      <input type="button" value="feed" onclick="feed()"/>
+      <div id="out"></div>
+    </div>
+    <script>
+    function refresh(){
+      var img = document.getElementById("image");
+      var src = img.src;
+      if( src.indexOf("?") != -1 ){
+        src = src.split("?")[0]
+      }
+      img.src = src+"?var="+(new Date().getTime())
+      setTimeout(refresh,1000);
+    }
+    window.onload = function(){
+      refresh();
+    }
+    function feed() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         document.getElementById("out").innerHTML = this.responseText; 
+        }
+      };
+      xhttp.open("POST", "feed.php", true);
+      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+      xhttp.send("submitted="+document.getElementById("field").value);
+    }
+    </script>
+  </body>
+</html>
+
