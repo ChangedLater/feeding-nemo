@@ -12,7 +12,7 @@ A tiny web site to feed my fish.
 ```
 Most of this was written on a sunday when i was fairly hung over, so the quality of the code reflects that.
 
-Also if you decide to break my site please don't kill my fish (overfededing will kill them)
+Also if you decide to break my site please don't kill my fish (overfeeding will kill them)
 
 ## Best Practices
 
@@ -37,4 +37,4 @@ Not recommended or supported...
 
 ## TODO
 
-Make code suck less
+Make code suck less (step 1 being dont use php)
